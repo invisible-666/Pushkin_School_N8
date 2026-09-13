@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Школа №8 — Контакты</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="contact.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+</head>
+<body>
+ 
+  <nav class="navigation">
+    <a class="nav-logo" href="index.html">
+      <div class="nav-logo-icon"><img src="images/pushkin_icon.png" alt="Пушкин"></div>
+      <span>Школа N8 имени А.С. Пушкина</span>
+    </a>
+    <ul>
+      <li class="list">
+        <a href="index.html">
+          <span class="icon"><i class="fa-solid fa-house"></i></span>
+          <span class="text">Главная</span>
+        </a>
+      </li>
+      <li class="list">
+        <a href="school.html">
+          <span class="icon"><i class="fa-solid fa-school"></i></span>
+          <span class="text">Школа</span>
+        </a>
+      </li>
+      <li class="list">
+        <a href="pushkin.html">
+          <span class="icon"><i class="fa-solid fa-feather-pointed"></i></span>
+          <span class="text">Пушкин</span>
+        </a>
+      </li>
+      <li class="list">
+        <a href="clubs.html">
+          <span class="icon"><i class="fa-solid fa-people-group"></i></span>
+          <span class="text">Кружки</span>
+        </a>
+      </li>
+      <li class="list">
+        <a href="news.html">
+          <span class="icon"><i class="fa-solid fa-newspaper"></i></span>
+          <span class="text">Новости</span>
+        </a>
+      </li>
+      <li class="list">
+        <a href="test.html">
+          <span class="icon"><i class="fa-solid fa-circle-question"></i></span>
+          <span class="text">Тест</span>
+        </a>
+      </li>
+      <li class="list active">
+        <a href="contact.html">
+          <span class="icon"><i class="fa-solid fa-address-book"></i></span>
+          <span class="text">Контакты</span>
+        </a>
+      </li>
+      <div class="indicator"></div>
+    </ul>
+  </nav>
+ 
+  <main>
+    <div class="page-banner">
+      <h1>Здесь ты можешь найти или связаться с нами</h1>
+    </div>
+ 
+    <section class="contact-section">
+ 
+      <div class="contact-left">
+        <h2>Все контактные данные</h2>
+        <ul class="contact-list">
+          <li>
+            <i class="fa-solid fa-location-dot"></i>
+            <span>Ереван, ул. Пушкина, Школа №8 им. А.С. Пушкина</span>
+          </li>
+          <li>
+            <i class="fa-solid fa-phone"></i>
+            <span>+374 10 XXX-XXX</span>
+          </li>
+          <li>
+            <i class="fa-solid fa-envelope"></i>
+            <span>school8pushkin@edu.am</span>
+          </li>
+          <li>
+            <i class="fa-solid fa-clock"></i>
+            <span id="hoursDisplay">Пн–Пт: 08:00 – 17:00</span>
+          </li>
+          <li>
+            <i class="fa-solid fa-globe"></i>
+            <span>Ереван, Республика Армения</span>
+          </li>
+        </ul>
+      </div>
+ 
+      <div class="contact-right">
+        <!-- Google Maps embed — School No.8 Yerevan -->
+        <iframe
+          class="map-frame"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12137.355567590634!2d44.49731!3d40.18111!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x406abd29a1f87895%3A0x2a2e7b1d5f80a006!2sYerevan%2C%20Armenia!5e0!3m2!1sru!2sam!4v1700000000000!5m2!1sru!2sam"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Карта с местоположением школы"
+        ></iframe>
+        <p class="map-hint">
+          <i class="fa-solid fa-map-pin"></i>
+          Карта с местоположением школы
+        </p>
+      </div>
+ 
+    </section>
+  </main>
+ 
+  <footer><p>&copy;2026 Все права защищены</p></footer>
+ 
+  <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="script.js"></script>
+  <script>
+    // Load school hours set by the director in the admin panel.
+    // If it fails (no internet, Firebase not set up yet) the default text above stays.
+    document.addEventListener('DOMContentLoaded', () => {
+      db.collection('settings').doc('hours').get().then(doc => {
+        if (doc.exists && doc.data().text) {
+          document.getElementById('hoursDisplay').textContent = doc.data().text;
+        }
+      }).catch(err => console.warn('Hours not loaded:', err));
+    });
+  </script>
+</body>
+</html>
