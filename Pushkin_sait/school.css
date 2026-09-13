@@ -1,0 +1,136 @@
+/* =========================================
+   SCHOOL.CSS — School Photos Page
+   ========================================= */
+
+.gallery-section {
+  padding: 48px 40px 60px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.gallery-item {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.07);
+  cursor: pointer;
+  aspect-ratio: 4/3;
+  transition: transform 0.25s, border-color 0.25s;
+}
+
+/* BUG FIX: the "large" class was used in school.html but never
+   defined here, so it had no effect. Now large items span 2 columns. */
+.gallery-item.large {
+  grid-column: span 2;
+}
+
+@media (max-width: 640px) {
+  .gallery-item.large {
+    grid-column: span 1;
+  }
+}
+
+.gallery-item:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold-border);
+}
+
+/* Actual image */
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.04);
+}
+
+/* Placeholder shown when no image */
+.img-placeholder {
+  display: none;
+  position: absolute;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  color: var(--text-muted);
+  font-size: 14px;
+  background: var(--bg-dark);
+}
+
+.img-placeholder i {
+  font-size: 36px;
+  color: var(--gold-border);
+}
+
+/* Show placeholder if image failed */
+.gallery-item.no-img img { display: none; }
+.gallery-item.no-img .img-placeholder { display: flex; }
+
+/* ---- LIGHTBOX ---- */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  z-index: 500;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox.open { display: flex; }
+
+.lightbox img {
+  max-width: 88vw;
+  max-height: 85vh;
+  border-radius: 8px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+  object-fit: contain;
+}
+
+.lightbox-close,
+.lightbox-prev,
+.lightbox-next {
+  position: absolute;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #fff;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.lightbox-close { top: 20px; right: 20px; }
+.lightbox-prev  { left: 20px; top: 50%; transform: translateY(-50%); }
+.lightbox-next  { right: 20px; top: 50%; transform: translateY(-50%); }
+
+.lightbox-close:hover,
+.lightbox-prev:hover,
+.lightbox-next:hover {
+  background: var(--gold);
+  color: #111;
+  border-color: var(--gold);
+}
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 640px) {
+  .gallery-section { padding: 28px 16px 40px; }
+  .gallery-grid { grid-template-columns: 1fr; gap: 14px; }
+}
